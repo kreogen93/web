@@ -134,14 +134,12 @@ else{
         }
         if(!$errors){
             $ability_insert = [];
+            $i=0;
             foreach ($ability_data as $ability) {
                 $ability_insert[$ability] = in_array($ability, $abilities) ? 1 : 0;
+                setcookie('ability'.$i, $ability_insert[$ability], time() + 30 * 24 * 60 * 60);
+                $i++;
             }
-            setcookie('ability0', $ability_insert['immort'], time() + 30 * 24 * 60 * 60);
-            setcookie('ability1', $ability_insert['wall'], time() + 30 * 24 * 60 * 60);
-            setcookie('ability2', $ability_insert['levit'], time() + 30 * 24 * 60 * 60);
-            setcookie('ability3', $ability_insert['invis'], time() + 30 * 24 * 60 * 60);
-
         }
     }
 
