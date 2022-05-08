@@ -106,7 +106,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         session_start();
     }
 
-    if ($errors && !empty($_COOKIE[session_name()]) && !empty($_SESSION['login'])) {
+    $check = true;
+    foreach($errors as $error){
+        if($error){
+            $check = false;
+        }
+    }
+
+    if ($check && !empty($_COOKIE[session_name()]) && !empty($_SESSION['login'])) {
         $db = new PDO('mysql:host=localhost;dbname=u47554', $user, $pass, array(PDO::ATTR_PERSISTENT => true));
         $id = getUserId($_SESSION['login']);
         try {
@@ -119,12 +126,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             exit();
         }
 
-        $values['name'] = filter_var($data['name'],  FILTER_SANITIZE_SPECIAL_CHARS);
-        $values['email'] = filter_var($data['email'], FILTER_SANITIZE_SPECIAL_CHARS);
-        $values['year'] = filter_var($data['year'],  FILTER_SANITIZE_SPECIAL_CHARS);
-        $values['sex'] = $data['sex'];
-        $values['limb'] = $data['limb'];
-        $values['bio'] = filter_var($data['bio'], FILTER_SANITIZE_SPECIAL_CHARS);
+        $values['fio_value'] = filter_var($data['name'],  FILTER_SANITIZE_SPECIAL_CHARS);
+        $values['email_value'] = filter_var($data['email'], FILTER_SANITIZE_SPECIAL_CHARS);
+        $values['year_value'] = filter_var($data['year'],  FILTER_SANITIZE_SPECIAL_CHARS);
+        $values['sex-value'] = $data['sex'];
+        $values['limb_value'] = $data['limb'];
+        $values['bio_value'] = filter_var($data['bio'], FILTER_SANITIZE_SPECIAL_CHARS);
 
         try {
             $stmt = $db->prepare("SELECT * FROM abilities WHERE user_id=:id");
