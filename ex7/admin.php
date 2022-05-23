@@ -135,7 +135,7 @@
                     echo '<tr>';
                     foreach ($user_data as $item){
                         echo '<th>';
-                        echo $item;
+                        echo filter_var($item,FILTER_SANITIZE_SPECIAL_CHARS);
                         echo '</th>';
                     }
                     echo '<th>';
